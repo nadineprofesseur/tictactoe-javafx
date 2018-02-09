@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -14,10 +15,9 @@ import javafx.stage.Stage;
 
 public class PageGrille extends Application
 {
-	protected ControleurGrille controleur;
-	
-	protected Rectangle caseDeJeu;
-	
+	protected ControleurGrille controleur;	
+	protected Rectangle[][] grille;		// https://docs.oracle.com/javafx/2/api/javafx/scene/shape/Rectangle.html
+		
 	public PageGrille()
 	{
 		// Le controleur est genere par la vue car l'instance utile de vue est créée en arrière plan par l'engin graphique
@@ -25,24 +25,39 @@ public class PageGrille extends Application
 		this.controleur = new ControleurGrille(this); 
 		// Une autre solution aurait été d'enregistrer la vue auprès d'un Registre ou Navigateur général
 		
-		// https://docs.oracle.com/javafx/2/api/javafx/scene/shape/Rectangle.html
-		this.caseDeJeu = new Rectangle();
-		this.caseDeJeu.setWidth(100);
-		this.caseDeJeu.setHeight(100);
-		this.caseDeJeu.setFill(Color.AZURE);
-		this.caseDeJeu.setStroke(Color.CHOCOLATE);
-		this.caseDeJeu.setArcWidth(20);
-		this.caseDeJeu.setArcHeight(20);
+		grille = new Rectangle[3][3];
+		for(int colonne = 0; colonne < 3; colonne++)
+		{
+			for(int rangee = 0; rangee < 3; rangee++)
+			{
+				Rectangle caseDeJeu = new Rectangle();
+				caseDeJeu.setWidth(100);
+				caseDeJeu.setHeight(100);
+				caseDeJeu.setFill(Color.AZURE);
+				caseDeJeu.setStroke(Color.CHOCOLATE);
+				caseDeJeu.setArcWidth(20);
+				caseDeJeu.setArcHeight(20);				
+				
+				caseDeJeu.setX(100*colonne);
+				caseDeJeu.setY(100*rangee);
+
+				grille[colonne][rangee] = caseDeJeu;
+			}
+		}		
 	}	
 	
 	@Override
 	public void start(Stage scenePrincipale) 
 	{
 		
-		StackPane racine = new StackPane();
-		this.caseDeJeu.setX(100);
-		this.caseDeJeu.setY(100);
-		racine.getChildren().add(this.caseDeJeu);
+		GridPane racine = new GridPane();
+		for(int colonne = 0; colonne < 3; colonne++)
+		{
+			for(int rangee = 0; rangee < 3; rangee++)
+			{
+				racine.add(grille[colonne][rangee],colonne, rangee);
+			}
+		}
 		Scene scene = new Scene(racine, 800, 800);
 		String cheminCSS = "decoration/Tictactoe.css";
 		scene.getStylesheets().add(PageGrille.class.getResource(cheminCSS).toExternalForm());
