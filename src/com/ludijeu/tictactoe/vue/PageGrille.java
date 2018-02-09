@@ -93,6 +93,22 @@ public class PageGrille extends Application
 		scene.getStylesheets().add(PageGrille.class.getResource(cheminCSS).toExternalForm());
 		scenePrincipale.setScene(scene);
 		scenePrincipale.show();
+		
+		this.controleur.tester();
+	}
+	
+	public void ecrireNomO(String nom)
+	{
+		this.libelleNomO.setText(nom);
+	}
+	public void ecrireNomX(String nom)
+	{
+		this.libelleNomX.setText(nom);		
+	}
+	
+	public void afficherTemps(int minutes, int secondes)
+	{
+		this.libelleTemps.setText(minutes + ":" + secondes);
 	}
 	
 }

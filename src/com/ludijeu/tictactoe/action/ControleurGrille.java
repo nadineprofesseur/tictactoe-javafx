@@ -14,4 +14,11 @@ public class ControleurGrille {
 	{
 		System.out.println("jouer un coup");
 	}
+	
+	public void tester()
+	{
+		this.pageGrille.afficherTemps(3, 45);
+		this.pageGrille.ecrireNomO("Nadine");
+		this.pageGrille.ecrireNomX("Caroline");
+	}
 }
