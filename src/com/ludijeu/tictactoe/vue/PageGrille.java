@@ -6,9 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -52,13 +55,22 @@ public class PageGrille extends Application
 	@Override
 	public void start(Stage scenePrincipale) 
 	{
+		VBox racine = new VBox();
+		Pane panneauHaut = new Pane();
+		Pane panneauBas = new Pane();
+		racine.getChildren().add(panneauHaut);
+		racine.getChildren().add(panneauBas);
 		
-		GridPane racine = new GridPane();
+		GridPane panneauGrille = new GridPane();
+		panneauBas.getChildren().add(panneauGrille);
+		panneauHaut.getChildren().add(new TextField());
+		panneauHaut.getChildren().add(new TextField());
+		
 		for(int colonne = 0; colonne < 3; colonne++)
 		{
 			for(int rangee = 0; rangee < 3; rangee++)
 			{
-				racine.add(grille[colonne][rangee],colonne, rangee);
+				panneauGrille.add(grille[colonne][rangee],colonne, rangee);
 			}
 		}
 		Scene scene = new Scene(racine, 800, 800);
