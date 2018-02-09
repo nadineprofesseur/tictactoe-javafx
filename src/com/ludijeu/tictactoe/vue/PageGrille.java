@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 //import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
@@ -35,12 +36,7 @@ public class PageGrille extends Application
 	protected Rectangle[][] grille;		// https://docs.oracle.com/javafx/2/api/javafx/scene/shape/Rectangle.html
 		
 	public PageGrille()
-	{
-		// Le controleur est genere par la vue car l'instance utile de vue est créée en arrière plan par l'engin graphique
-		// On recupere ainsi la reference a cette instance pour y referer dans le reste de l'application
-		this.controleur = new ControleurGrille(this); 
-		// Une autre solution aurait été d'enregistrer la vue auprès d'un Registre ou Navigateur général
-		
+	{		
 		grille = new Rectangle[3][3];
 		for(int colonne = 0; colonne < 3; colonne++)
 		{
@@ -50,21 +46,40 @@ public class PageGrille extends Application
 				grille[colonne][rangee] = caseDeJeu;
 			}
 		}		
+		
+		// Le controleur est genere par la vue car l'instance utile de vue est créée en arrière plan par l'engin graphique
+		// On recupere ainsi la reference a cette instance pour y referer dans le reste de l'application
+		this.controleur = new ControleurGrille(this); 
+		// Une autre solution aurait été d'enregistrer la vue auprès d'un Registre ou Navigateur général
 	}	
+
+	protected TextField libelleNomO;
+	protected TextField libelleNomX;
+	protected TextField libelleTemps;
+	
 	
 	@Override
 	public void start(Stage scenePrincipale) 
 	{
 		VBox racine = new VBox();
 		Pane panneauHaut = new Pane();
+		HBox panneauInfos = new HBox();
+		panneauHaut.getChildren().add(panneauInfos);
+
 		Pane panneauBas = new Pane();
 		racine.getChildren().add(panneauHaut);
 		racine.getChildren().add(panneauBas);
 		
 		GridPane panneauGrille = new GridPane();
 		panneauBas.getChildren().add(panneauGrille);
-		panneauHaut.getChildren().add(new TextField());
-		panneauHaut.getChildren().add(new TextField());
+		
+		libelleNomO = new TextField();
+		libelleNomX = new TextField();
+		libelleTemps = new TextField();
+		libelleTemps.setStyle("-fx-background-color:orange");
+		panneauInfos.getChildren().add(libelleNomO);
+		panneauInfos.getChildren().add(libelleTemps);
+		panneauInfos.getChildren().add(libelleNomX);
 		
 		for(int colonne = 0; colonne < 3; colonne++)
 		{
