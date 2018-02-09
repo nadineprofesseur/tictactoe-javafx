@@ -63,19 +63,26 @@ public class PageGrille extends Application
 	{
 		VBox racine = new VBox();
 		Pane panneauHaut = new Pane();
+		panneauHaut.setId("panneau-haut");
 		HBox panneauInfos = new HBox();
+		panneauInfos.setId("panneau-infos");
 		panneauHaut.getChildren().add(panneauInfos);
 
 		Pane panneauBas = new Pane();
+		panneauBas.setId("panneau-bas");
 		racine.getChildren().add(panneauHaut);
 		racine.getChildren().add(panneauBas);
 		
 		GridPane panneauGrille = new GridPane();
+		panneauGrille.setId("panneau-grille");
 		panneauBas.getChildren().add(panneauGrille);
 		
 		libelleNomO = new TextField();
+		libelleNomO.setId("libelle-nom-O"); // car pas de classes
 		libelleNomX = new TextField();
+		libelleNomX.setId("libelle-nom-X"); // car pas de classes
 		libelleTemps = new TextField();
+		libelleTemps.setId("libelle-temps");
 		libelleTemps.setStyle("-fx-background-color:orange"); // TODO : remplacer par une classe
 		panneauInfos.getChildren().add(libelleNomO);
 		panneauInfos.getChildren().add(libelleTemps);
