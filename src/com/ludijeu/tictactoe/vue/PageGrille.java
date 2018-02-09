@@ -15,6 +15,19 @@ import javafx.stage.Stage;
 
 public class PageGrille extends Application
 {
+	protected class CaseJeu extends Rectangle
+	{
+		public CaseJeu() 
+		{
+			this.setWidth(100);
+			this.setHeight(100);
+			this.setFill(Color.AZURE);
+			this.setStroke(Color.CHOCOLATE);
+			this.setArcWidth(20);
+			this.setArcHeight(20);				
+		}
+	}
+	
 	protected ControleurGrille controleur;	
 	protected Rectangle[][] grille;		// https://docs.oracle.com/javafx/2/api/javafx/scene/shape/Rectangle.html
 		
@@ -30,14 +43,7 @@ public class PageGrille extends Application
 		{
 			for(int rangee = 0; rangee < 3; rangee++)
 			{
-				Rectangle caseDeJeu = new Rectangle();
-				caseDeJeu.setWidth(100);
-				caseDeJeu.setHeight(100);
-				caseDeJeu.setFill(Color.AZURE);
-				caseDeJeu.setStroke(Color.CHOCOLATE);
-				caseDeJeu.setArcWidth(20);
-				caseDeJeu.setArcHeight(20);				
-				
+				Rectangle caseDeJeu = new CaseJeu();				
 				grille[colonne][rangee] = caseDeJeu;
 			}
 		}		
