@@ -20,5 +20,7 @@ public class ControleurGrille {
 		this.pageGrille.afficherTemps(3, 45);
 		this.pageGrille.ecrireNomO("Nadine");
 		this.pageGrille.ecrireNomX("Caroline");
+		this.pageGrille.afficherCoupO(2, 2);
+		this.pageGrille.afficherCoupX(1, 0);
 	}
 }

@@ -76,7 +76,7 @@ public class PageGrille extends Application
 		libelleNomO = new TextField();
 		libelleNomX = new TextField();
 		libelleTemps = new TextField();
-		libelleTemps.setStyle("-fx-background-color:orange");
+		libelleTemps.setStyle("-fx-background-color:orange"); // TODO : remplacer par une classe
 		panneauInfos.getChildren().add(libelleNomO);
 		panneauInfos.getChildren().add(libelleTemps);
 		panneauInfos.getChildren().add(libelleNomX);
@@ -105,10 +105,16 @@ public class PageGrille extends Application
 	{
 		this.libelleNomX.setText(nom);		
 	}
-	
 	public void afficherTemps(int minutes, int secondes)
 	{
 		this.libelleTemps.setText(minutes + ":" + secondes);
 	}
-	
+	public void afficherCoupX(int colonne, int rangee)
+	{
+		this.grille[colonne][rangee].setFill(Color.BLUE);
+	}
+	public void afficherCoupO(int colonne, int rangee)
+	{
+		this.grille[colonne][rangee].setFill(Color.GREEN);	
+	}
 }
