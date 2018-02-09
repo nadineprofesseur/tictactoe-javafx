@@ -38,9 +38,6 @@ public class PageGrille extends Application
 				caseDeJeu.setArcWidth(20);
 				caseDeJeu.setArcHeight(20);				
 				
-				caseDeJeu.setX(100*colonne);
-				caseDeJeu.setY(100*rangee);
-
 				grille[colonne][rangee] = caseDeJeu;
 			}
 		}		
