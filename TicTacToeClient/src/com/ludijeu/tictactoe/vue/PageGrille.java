@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,6 +22,9 @@ public class PageGrille extends Application
 {
 	protected class CaseJeu extends Rectangle
 	{
+		protected int colonne;
+		protected int rangee;
+		
 		public CaseJeu() 
 		{
 			this.setWidth(100);
@@ -30,11 +34,23 @@ public class PageGrille extends Application
 			this.setArcWidth(20);
 			this.setArcHeight(20);				
 		}
+		public int getColonne() {
+			return colonne;
+		}
+		public void setColonne(int colonne) {
+			this.colonne = colonne;
+		}
+		public int getRangee() {
+			return rangee;
+		}
+		public void setRangee(int rangee) {
+			this.rangee = rangee;
+		}
 	}
 	
 	protected ControleurGrille controleur;	
 	protected Rectangle[][] grille;		// https://docs.oracle.com/javafx/2/api/javafx/scene/shape/Rectangle.html
-		
+	
 	public PageGrille()
 	{		
 		grille = new Rectangle[3][3];
@@ -42,7 +58,16 @@ public class PageGrille extends Application
 		{
 			for(int rangee = 0; rangee < 3; rangee++)
 			{
-				Rectangle caseDeJeu = new CaseJeu();				
+				Rectangle caseDeJeu = new CaseJeu();
+				int c = colonne; int r = rangee;
+				caseDeJeu.setOnMouseClicked(
+					new EventHandler<MouseEvent>() 
+					{
+					    public void handle(MouseEvent evenement) {
+					    	controleur.declencherCaseDeJeu(c, r);
+					    }        
+					}
+				);
 				grille[colonne][rangee] = caseDeJeu;
 			}
 		}		
@@ -101,7 +126,7 @@ public class PageGrille extends Application
 		scenePrincipale.setScene(scene);
 		scenePrincipale.show();
 		
-		this.controleur.tester();
+		this.controleur.initialiser();
 	}
 	
 	public void ecrireNomO(String nom)

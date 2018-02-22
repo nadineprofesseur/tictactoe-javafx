@@ -10,17 +10,18 @@ public class ControleurGrille {
 		this.pageGrille = pageGrille;
 	}
 	
-	public void jouerCoup()
+	public void declencherCaseDeJeu(int colonne, int rangee)
 	{
-		System.out.println("jouer un coup");
+		System.out.println("jouer un coup : " + colonne + " - " + rangee);
+		this.pageGrille.afficherCoupX(colonne, rangee);
 	}
 	
-	public void tester()
+	public void initialiser()
 	{
-		this.pageGrille.afficherTemps(3, 45);
+		this.pageGrille.afficherTemps(0, 0);
 		this.pageGrille.ecrireNomO("Nadine");
 		this.pageGrille.ecrireNomX("Caroline");
-		this.pageGrille.afficherCoupO(2, 2);
-		this.pageGrille.afficherCoupX(1, 0);
+		//this.pageGrille.afficherCoupO(2, 2);
+		//this.pageGrille.afficherCoupX(1, 0);
 	}
 }
