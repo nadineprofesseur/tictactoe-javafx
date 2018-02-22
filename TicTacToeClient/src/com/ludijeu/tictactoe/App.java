@@ -8,5 +8,17 @@ public class App
 		//PageGrille pageGrille = new PageGrille();
 		//pageGrille.launch(PageGrille.class, parametres);
 		Client client = new Client();
+		
+		Thread processusReseau = new Thread(
+				new Runnable()
+				{
+					public void run()
+					{
+						client.recevoirMessage();
+					}
+				}
+			);
+			processusReseau.start();
+
 	}
 }
