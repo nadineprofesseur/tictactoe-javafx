@@ -1,0 +1,35 @@
+.button
+{
+	-fx-font-family:"Arial";
+	-fx-font-weight:bold;
+}
+
+#action-dire-bonjour
+{
+	-fx-text-fill:red;	
+}
+
+.root
+{
+	-fx-background-color : orange;
+}
+
+#panneau-haut
+{
+}
+#panneau-bas
+{
+}
+#panneau-grille
+{
+}
+#panneau-infos
+{
+}
+#libelle-nom-X, libelle-nom-O
+{
+
+}
+#libelle-temps
+{
+}
