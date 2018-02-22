@@ -43,6 +43,7 @@ public class Serveur {
 					this.imprimante = new PrintWriter(connexion.getOutputStream(),true);
 					this.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
 					this.imprimante.println("Bievenue sur ce serveur"); this.imprimante.flush();
+					this.ecouterMessages();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -54,5 +55,34 @@ public class Serveur {
 	protected Socket connexion = null;
 	protected PrintWriter imprimante = null;
 	protected BufferedReader lecteur = null;
+	
+	public void recevoirMessage()
+	{
+		if(lecteur == null) return;
+		try {
+			System.out.println("Recevoir message()");
+			String message = null;
+			while((message = lecteur.readLine()) != null)
+			{
+				System.out.println("Message recu " + message);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public void ecouterMessages()
+	{
+		Thread processusReseau = new Thread(
+				new Runnable()
+				{
+					public void run()
+					{
+						recevoirMessage();
+					}
+				}
+			);
+		processusReseau.start();
+	}
 	
 }

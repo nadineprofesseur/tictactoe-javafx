@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import com.ludijeu.tictactoe.action.ControleurGrille;
+
 public class Client {
 
 	public static int PORT = 2000;
@@ -25,6 +27,14 @@ public class Client {
 		}
 	}
 	
+	public boolean envoyerMessage(String message)
+	{
+		this.imprimante.println(message);
+		this.imprimante.flush();
+		System.out.println("Message envoye " + message);
+		return true;
+	}
+	
 	public void recevoirMessage()
 	{
 		if(lecteur == null) return;
@@ -37,8 +47,7 @@ public class Client {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 }

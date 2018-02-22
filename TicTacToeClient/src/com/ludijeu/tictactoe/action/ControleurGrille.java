@@ -1,19 +1,36 @@
 package com.ludijeu.tictactoe.action;
+import com.ludijeu.tictactoe.Client;
 import com.ludijeu.tictactoe.vue.PageGrille;
 
 public class ControleurGrille {
 	
 	protected PageGrille pageGrille;
+	protected Client client;
 	
 	public ControleurGrille(PageGrille pageGrille)
 	{
 		this.pageGrille = pageGrille;
+		this.client = new Client();
+		
+		Thread processusReseau = new Thread(
+				new Runnable()
+				{
+					public void run()
+					{
+						client.recevoirMessage();
+					}
+				}
+			);
+		processusReseau.start();
+
 	}
 	
+	String symbole = "x";
 	public void declencherCaseDeJeu(int colonne, int rangee)
 	{
 		System.out.println("jouer un coup : " + colonne + " - " + rangee);
 		this.pageGrille.afficherCoupX(colonne, rangee);
+		this.client.envoyerMessage("<coup><symbole>"+symbole+"</symbole><colonne>"+colonne+"</colonne><rangee>"+rangee+"</rangee></coup>");
 	}
 	
 	public void initialiser()
