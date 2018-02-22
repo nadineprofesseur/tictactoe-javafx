@@ -120,7 +120,7 @@ public class PageGrille extends Application
 				panneauGrille.add(grille[colonne][rangee],colonne, rangee);
 			}
 		}
-		Scene scene = new Scene(racine, 800, 800);
+		Scene scene = new Scene(racine, 400, 350);
 		String cheminCSS = "decoration/Tictactoe.css";
 		scene.getStylesheets().add(PageGrille.class.getResource(cheminCSS).toExternalForm());
 		scenePrincipale.setScene(scene);

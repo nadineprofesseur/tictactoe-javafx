@@ -1,4 +1,6 @@
 package com.ludijeu.tictactoe.action;
+import java.util.regex.Pattern;
+
 import com.ludijeu.tictactoe.Client;
 import com.ludijeu.tictactoe.vue.PageGrille;
 
@@ -22,7 +24,6 @@ public class ControleurGrille {
 				}
 			);
 		processusReseau.start();
-
 	}
 	
 	String symbole = "x";
