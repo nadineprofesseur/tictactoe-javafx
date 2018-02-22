@@ -38,15 +38,25 @@ public class Serveur {
 		if(ecouteur != null)
 		{
 			try {
-				while((connexion = ecouteur.accept()) != null)
+				if((connexion = ecouteur.accept()) != null)
 				{
 					System.out.println("Demande de connexion recue");
-					ContactJoueur contact = new ContactJoueur();
+					ContactJoueur contact = new ContactJoueur("x");
 					contact.imprimante = new PrintWriter(connexion.getOutputStream(),true);
 					contact.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-					contact.imprimante.println("Bievenue sur ce serveur"); contact.imprimante.flush();
+					contact.imprimante.println("Bievenue sur ce serveur " + contact.symbole); contact.imprimante.flush();
 					contact.ecouterMessages();
 				}
+				if((connexion = ecouteur.accept()) != null)
+				{
+					System.out.println("Demande de connexion recue");
+					ContactJoueur contact = new ContactJoueur("y");
+					contact.imprimante = new PrintWriter(connexion.getOutputStream(),true);
+					contact.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+					contact.imprimante.println("Bievenue sur ce serveur " + contact.symbole); contact.imprimante.flush();
+					contact.ecouterMessages();
+				}
+				// refuser les autres connexion
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -59,6 +69,13 @@ public class Serveur {
 		public Socket connexion = null;
 		public PrintWriter imprimante = null;
 		public BufferedReader lecteur = null;
+		
+		public String symbole = null;
+		
+		public ContactJoueur(String symbole)
+		{
+			this.symbole = symbole;
+		}
 		
 		public void recevoirMessage()
 		{
