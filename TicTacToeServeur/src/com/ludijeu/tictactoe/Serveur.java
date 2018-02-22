@@ -49,19 +49,21 @@ public class Serveur {
 					System.out.println("Demande de connexion recue");
 					ContactJoueur contact = new ContactJoueur("x");
 					this.listeJoueurs[INDICE_X] = contact;
+					// TODO deplacer dans classe ContactJoueur
 					contact.imprimante = new PrintWriter(connexion.getOutputStream(),true);
 					contact.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-					contact.imprimante.println("Bievenue sur ce serveur " + contact.symbole); contact.imprimante.flush();
+					contact.imprimante.println("<bienvenue><symbole>" + contact.symbole + "</symbole></bienvenue>"); contact.imprimante.flush();
 					contact.ecouterMessages();
 				}
 				if((connexion = ecouteur.accept()) != null)
 				{
 					System.out.println("Demande de connexion recue");
-					ContactJoueur contact = new ContactJoueur("y");
+					ContactJoueur contact = new ContactJoueur("o");
 					this.listeJoueurs[INDICE_O] = contact;
+					// TODO deplacer dans classe ContactJoueur
 					contact.imprimante = new PrintWriter(connexion.getOutputStream(),true);
 					contact.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-					contact.imprimante.println("Bievenue sur ce serveur " + contact.symbole); contact.imprimante.flush();
+					contact.imprimante.println("<bienvenue><symbole>" + contact.symbole + "</symbole></bienvenue>"); contact.imprimante.flush();
 					contact.ecouterMessages();
 				}
 				// refuser les autres connexion
@@ -108,6 +110,12 @@ public class Serveur {
 						{
 							grille[Integer.parseInt(coupDansMessage.group(2))][Integer.parseInt(coupDansMessage.group(3))] = INDICE_X;
 							listeJoueurs[INDICE_O].envoyerMessage(message);
+						}
+						else
+						if(symbole.compareTo("o") == 0) 
+						{
+							grille[Integer.parseInt(coupDansMessage.group(2))][Integer.parseInt(coupDansMessage.group(3))] = INDICE_O;
+							listeJoueurs[INDICE_X].envoyerMessage(message);
 						}
 					}
 

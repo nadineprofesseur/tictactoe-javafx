@@ -56,18 +56,23 @@ public class Client {
 	}
 	
 	Pattern regexCoup = Pattern.compile("<coup><symbole>(.*)</symbole><colonne>(.*)</colonne><rangee>(.*)</rangee></coup>");
+	Pattern regexBienvenue = Pattern.compile("<bienvenue><symbole>(.*)</symbole></bienvenue>");
 	public void interpreterMessage(String message)
 	{
 		Matcher coupDansMessage = regexCoup.matcher(message);
 		if(coupDansMessage.matches())
 		{
 			String symbole = coupDansMessage.group(1);
-			if(symbole.compareTo("x") == 0) 
-			{
-				this.controleur.recevoirCoup(Integer.parseInt(coupDansMessage.group(2)), Integer.parseInt(coupDansMessage.group(3)));
-			}
+			this.controleur.recevoirCoup(Integer.parseInt(coupDansMessage.group(2)), Integer.parseInt(coupDansMessage.group(3)));
 		}
-
+		Matcher bienvenueAvecSymbole = regexBienvenue.matcher(message);
+		if(bienvenueAvecSymbole.matches())
+		{
+			String symbole = bienvenueAvecSymbole.group(1);
+			this.controleur.setSymbole(symbole);
+		}
 	}
+	
+	// TODO retirer ou rendre permanentes les variables temporaires
 	
 }

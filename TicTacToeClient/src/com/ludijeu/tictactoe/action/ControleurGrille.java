@@ -27,17 +27,25 @@ public class ControleurGrille {
 	}
 	
 	protected String symbole = "x";
+
+	public void setSymbole(String symbole) {
+		System.out.println("le symbole enregistre est " + symbole);
+		this.symbole = symbole;
+	}
+
 	public void declencherCaseDeJeu(int colonne, int rangee)
 	{
 		System.out.println("jouer un coup : " + colonne + " - " + rangee);
-		this.pageGrille.afficherCoupX(colonne, rangee);
+		if(this.symbole.compareTo("x") == 0) this.pageGrille.afficherCoupX(colonne, rangee);
+		if(this.symbole.compareTo("o") == 0) this.pageGrille.afficherCoupO(colonne, rangee);
 		this.client.envoyerMessage("<coup><symbole>"+symbole+"</symbole><colonne>"+colonne+"</colonne><rangee>"+rangee+"</rangee></coup>");
 	}
 	
-	public void recevoirCoup(int colonne, int rangee)
+	public void recevoirCoup(int colonne, int rangee) // on recoit toujours le symbole inverse, jamais le sien
 	{
 		System.out.println("recevoir un coup : " + colonne + " - " + rangee);
-		this.pageGrille.afficherCoupO(colonne, rangee);
+		if(this.symbole.compareTo("x") == 0) this.pageGrille.afficherCoupO(colonne, rangee);
+		if(this.symbole.compareTo("o") == 0) this.pageGrille.afficherCoupX(colonne, rangee);
 	}
 	
 	public void initialiser()
