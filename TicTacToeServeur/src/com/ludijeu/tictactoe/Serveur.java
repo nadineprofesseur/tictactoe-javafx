@@ -32,6 +32,7 @@ public class Serveur {
 		return true;
 	}
 	
+	protected Socket connexion = null;
 	public void ecouter()
 	{
 		if(ecouteur != null)
@@ -40,10 +41,11 @@ public class Serveur {
 				while((connexion = ecouteur.accept()) != null)
 				{
 					System.out.println("Demande de connexion recue");
-					this.imprimante = new PrintWriter(connexion.getOutputStream(),true);
-					this.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
-					this.imprimante.println("Bievenue sur ce serveur"); this.imprimante.flush();
-					this.ecouterMessages();
+					ContactJoueur contact = new ContactJoueur();
+					contact.imprimante = new PrintWriter(connexion.getOutputStream(),true);
+					contact.lecteur = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
+					contact.imprimante.println("Bievenue sur ce serveur"); contact.imprimante.flush();
+					contact.ecouterMessages();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -51,38 +53,41 @@ public class Serveur {
 		}
 	}
 
-	// pour chaque connexion recue
-	protected Socket connexion = null;
-	protected PrintWriter imprimante = null;
-	protected BufferedReader lecteur = null;
-	
-	public void recevoirMessage()
+	public class ContactJoueur
 	{
-		if(lecteur == null) return;
-		try {
-			System.out.println("Recevoir message()");
-			String message = null;
-			while((message = lecteur.readLine()) != null)
-			{
-				System.out.println("Message recu " + message);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
-	}
-	
-	public void ecouterMessages()
-	{
-		Thread processusReseau = new Thread(
-				new Runnable()
+		// pour chaque connexion recue
+		public Socket connexion = null;
+		public PrintWriter imprimante = null;
+		public BufferedReader lecteur = null;
+		
+		public void recevoirMessage()
+		{
+			if(lecteur == null) return;
+			try {
+				System.out.println("Recevoir message()");
+				String message = null;
+				while((message = lecteur.readLine()) != null)
 				{
-					public void run()
-					{
-						recevoirMessage();
-					}
+					System.out.println("Message recu " + message);
 				}
-			);
-		processusReseau.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
+		}
+		
+		public void ecouterMessages()
+		{
+			Thread processusReseau = new Thread(
+					new Runnable()
+					{
+						public void run()
+						{
+							recevoirMessage();
+						}
+					}
+				);
+			processusReseau.start();
+		}		
 	}
 	
 }
