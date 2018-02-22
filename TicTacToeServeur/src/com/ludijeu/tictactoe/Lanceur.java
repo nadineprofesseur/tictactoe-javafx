@@ -1,9 +1,9 @@
 package com.ludijeu.tictactoe;
 
-public class AppServeur {
+public class Lanceur {
 
 	public static void main(String[] parametres) 
 	{
-	
+		Serveur serveur = new Serveur();
 	}	
 }
