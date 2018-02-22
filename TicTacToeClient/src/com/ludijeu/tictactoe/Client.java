@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.ludijeu.tictactoe.action.ControleurGrille;
 
@@ -15,9 +17,11 @@ public class Client {
 	protected Socket connexion = null;	
 	protected PrintWriter imprimante = null;
 	protected BufferedReader lecteur = null;
+	protected ControleurGrille controleur = null;
 	
-	public Client()
+	public Client(ControleurGrille controleur)
 	{
+		this.controleur = controleur;
 		try {
 			this.connexion = new Socket(InetAddress.getLocalHost(),PORT);
 			this.imprimante = new PrintWriter(connexion.getOutputStream(),true);
@@ -44,10 +48,26 @@ public class Client {
 			while((message = lecteur.readLine()) != null)
 			{
 				System.out.println("Message recu " + message);
+				interpreterMessage(message);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	Pattern regexCoup = Pattern.compile("<coup><symbole>(.*)</symbole><colonne>(.*)</colonne><rangee>(.*)</rangee></coup>");
+	public void interpreterMessage(String message)
+	{
+		Matcher coupDansMessage = regexCoup.matcher(message);
+		if(coupDansMessage.matches())
+		{
+			String symbole = coupDansMessage.group(1);
+			if(symbole.compareTo("x") == 0) 
+			{
+				this.controleur.recevoirCoup(Integer.parseInt(coupDansMessage.group(2)), Integer.parseInt(coupDansMessage.group(3)));
+			}
+		}
+
 	}
 	
 }

@@ -12,7 +12,7 @@ public class ControleurGrille {
 	public ControleurGrille(PageGrille pageGrille)
 	{
 		this.pageGrille = pageGrille;
-		this.client = new Client();
+		this.client = new Client(this);
 		
 		Thread processusReseau = new Thread(
 				new Runnable()
@@ -26,12 +26,18 @@ public class ControleurGrille {
 		processusReseau.start();
 	}
 	
-	String symbole = "x";
+	protected String symbole = "x";
 	public void declencherCaseDeJeu(int colonne, int rangee)
 	{
 		System.out.println("jouer un coup : " + colonne + " - " + rangee);
 		this.pageGrille.afficherCoupX(colonne, rangee);
 		this.client.envoyerMessage("<coup><symbole>"+symbole+"</symbole><colonne>"+colonne+"</colonne><rangee>"+rangee+"</rangee></coup>");
+	}
+	
+	public void recevoirCoup(int colonne, int rangee)
+	{
+		System.out.println("recevoir un coup : " + colonne + " - " + rangee);
+		this.pageGrille.afficherCoupO(colonne, rangee);
 	}
 	
 	public void initialiser()
