@@ -2,6 +2,7 @@ package com.ludijeu.tictactoe;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Serveur {
 	
@@ -11,6 +12,7 @@ public class Serveur {
 	public Serveur()
 	{
 		this.ouvrir();
+		this.ecouter();
 	}
 	
 	public boolean ouvrir()
@@ -27,5 +29,19 @@ public class Serveur {
 		return true;
 	}
 	
-
+	public void ecouter()
+	{
+		if(ecouteur != null)
+		{
+				Socket connexion = null;
+				try {
+					while((connexion = ecouteur.accept()) != null)
+					{
+						System.out.println("Demande de connexion recue");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 }
